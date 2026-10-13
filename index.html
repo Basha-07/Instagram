@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram — Redesign</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+
+  <!-- ======== LOGIN PAGE ======== -->
+  <div class="page" id="page-login">
+    <div class="login-wrapper">
+
+      <div class="login-mockup">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-post-card">
+              <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?auto=format&fit=crop&w=600&q=80"
+                alt="Mockup Post" class="phone-post-img" />
+            </div>
+            <div class="phone-post-card">
+              <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=600&q=80"
+                alt="Mockup Post" class="phone-post-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="login-right">
+
+        <div class="auth-card" id="login-card">
+          <h1 class="logo-text">Instagram</h1>
+          <form class="auth-form" onsubmit="handleLogin(event)">
+            <input type="text" id="login-username-input" placeholder="Phone number, username, or email"
+              class="auth-input" required />
+            <input type="password" id="login-password-input" placeholder="Password" class="auth-input" required />
+            <button type="submit" class="auth-btn-primary">Log in</button>
+          </form>
+          <div class="or-divider">
+            <span class="or-line"></span>
+            <span class="or-text">OR</span>
+            <span class="or-line"></span>
+          </div>
+          <a href="#" class="facebook-login" onclick="showPage('page-home')">
+            <i class="fab fa-facebook-square"></i>
+            <span>Log in with Facebook</span>
+          </a>
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+
+        <div class="auth-card signup-card">
+          <p class="signup-text">
+            Don't have an account?
+            <a href="#" onclick="showPage('page-signup')">Sign up</a>
+          </p>
+        </div>
+
+        <div class="app-download">
+          <p class="get-app-text">Get the app.</p>
+          <div class="store-buttons">
+            <a href="#" class="store-btn"><i class="fab fa-apple"></i> App Store</a>
+            <a href="#" class="store-btn"><i class="fab fa-google-play"></i> Google Play</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== SIGN UP PAGE ======== -->
+  <div class="page hidden" id="page-signup">
+    <div class="signup-wrapper">
+      <div class="auth-card signup-full-card">
+        <h1 class="logo-text">Instagram</h1>
+        <h2 class="signup-tagline">Sign up to see photos and videos from your friends.</h2>
+        <a href="#" class="facebook-login" onclick="showPage('page-home')">
+          <i class="fab fa-facebook-square"></i>
+          <span>Log in with Facebook</span>
+        </a>
+        <div class="or-divider">
+          <span class="or-line"></span>
+          <span class="or-text">OR</span>
+          <span class="or-line"></span>
+        </div>
+        <form class="auth-form" onsubmit="handleSignup(event)">
+          <input type="email" placeholder="Mobile Number or Email" class="auth-input" required />
+          <input type="text" id="signup-fullname" placeholder="Full Name" class="auth-input" required />
+          <input type="text" id="signup-username" placeholder="Username" class="auth-input" required />
+          <input type="password" placeholder="Password" class="auth-input" required />
+          <p class="signup-disclaimer">
+            People who use our service may have uploaded your contact information to Instagram. <a href="#">Learn
+              More</a>
+          </p>
+          <p class="signup-disclaimer">
+            By signing up, you agree to our <a href="#">Terms</a>, <a href="#">Privacy Policy</a> and <a
+              href="#">Cookies Policy</a>.
+          </p>
+          <button type="submit" class="auth-btn-primary">Sign up</button>
+        </form>
+        <p class="have-account">Have an account? <a href="#" onclick="showPage('page-login')">Log in</a></p>
+      </div>
+      <div class="app-download">
+        <p class="get-app-text">Get the app.</p>
+        <div class="store-buttons">
+          <a href="#" class="store-btn"><i class="fab fa-apple"></i> App Store</a>
+          <a href="#" class="store-btn"><i class="fab fa-google-play"></i> Google Play</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== HOME / FEED PAGE ======== -->
+  <div class="page hidden" id="page-home">
+
+    <nav class="navbar">
+      <div class="nav-inner">
+        <div class="nav-logo" onclick="showPage('page-home')">
+          <span class="logo-text nav-logo-text">Instagram</span>
+        </div>
+        <div class="nav-search">
+          <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="Search" class="search-input" id="global-search-input"
+              onkeyup="handleGlobalSearch(this.value)" />
+          </div>
+        </div>
+        <div class="nav-icons">
+          <button class="nav-icon-btn active" title="Home" onclick="showPage('page-home')"><i
+              class="fas fa-home"></i></button>
+          <button class="nav-icon-btn" title="Messages" onclick="showPage('page-messages')"><i
+              class="far fa-paper-plane"></i><span class="badge">2</span></button>
+          <button class="nav-icon-btn" title="New Post" onclick="showModal('modal-new-post')"><i
+              class="far fa-plus-square"></i></button>
+          <button class="nav-icon-btn" title="Explore" onclick="showPage('page-explore')"><i
+              class="far fa-compass"></i></button>
+          <button class="nav-icon-btn" title="Notifications" onclick="toggleNotifications()"><i
+              class="far fa-heart"></i><span class="badge-dot"></span></button>
+          <button class="nav-icon-btn theme-toggle-btn" title="Toggle Theme" onclick="toggleTheme()"><i
+              class="fas fa-moon"></i></button>
+          <button class="nav-icon-btn profile-nav-btn" title="Profile" onclick="showPage('page-profile')">
+            <div class="nav-avatar"></div>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="notifications-dropdown hidden" id="notifications-dropdown">
+      <h3 class="notif-heading">Notifications</h3>
+      <div class="notif-tabs">
+        <span class="notif-tab active">This Week</span>
+        <span class="notif-tab">This Month</span>
+      </div>
+      <div class="notif-list">
+        <div class="notif-item">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+            class="notif-avatar-img" alt="Avatar" />
+          <p class="notif-text"><strong>john_doe</strong> liked your photo. <span class="notif-time">2h</span></p>
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=120&q=80"
+            class="notif-post-thumb-img" alt="Post" />
+        </div>
+        <div class="notif-item">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80"
+            class="notif-avatar-img" alt="Avatar" />
+          <p class="notif-text"><strong>jane_smith</strong> started following you. <span class="notif-time">5h</span>
+          </p>
+          <button class="follow-btn-sm" onclick="toggleFollow(this)">Follow</button>
+        </div>
+        <div class="notif-item">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"
+            class="notif-avatar-img" alt="Avatar" />
+          <p class="notif-text"><strong>travel_vibes</strong> commented: "Amazing shot!" <span
+              class="notif-time">1d</span></p>
+          <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?auto=format&fit=crop&w=120&q=80"
+            class="notif-post-thumb-img" alt="Post" />
+        </div>
+      </div>
+    </div>
+
+    <main class="home-main">
+
+      <section class="feed-section">
+
+        <!-- Stories -->
+        <div class="stories-container">
+          <div class="stories-scroll">
+            <div class="story-item">
+              <div class="story-ring">
+                <div class="story-avatar your-story-avatar">
+                  <img
+                    src="WhatsApp Image 2026-10-13 at 1.36.40 PM.jpeg"
+                    alt="Your avatar" class="avatar-img user-avatar-sync" />
+                  <span class="add-story-icon"><i class="fas fa-plus"></i></span>
+                </div>
+              </div>
+              <span class="story-username">Your Story</span>
+            </div>
+            <div class="story-item"
+              onclick="openStory('travel_vibes', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80')">
+              <div class="story-ring has-story">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80"
+                  class="story-avatar-img" alt="travel_vibes" />
+              </div>
+              <span class="story-username">travel_vibes</span>
+            </div>
+            <div class="story-item"
+              onclick="openStory('john_doe', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80', 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80')">
+              <div class="story-ring has-story">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
+                  class="story-avatar-img" alt="john_doe" />
+              </div>
+              <span class="story-username">john_doe</span>
+            </div>
+            <div class="story-item"
+              onclick="openStory('jane_s', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80')">
+              <div class="story-ring has-story">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80"
+                  class="story-avatar-img" alt="jane_s" />
+              </div>
+              <span class="story-username">jane_s</span>
+            </div>
+            <div class="story-item"
+              onclick="openStory('photogrph', 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80', 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80')">
+              <div class="story-ring has-story">
+                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80"
+                  class="story-avatar-img" alt="photogrph" />
+              </div>
+              <span class="story-username">photogrph</span>
+            </div>
+            <div class="story-item"
+              onclick="openStory('daily_vlog', 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=150&q=80', 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80')">
+              <div class="story-ring has-story">
+                <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=150&q=80"
+                  class="story-avatar-img" alt="daily_vlog" />
+              </div>
+              <span class="story-username">daily_vlog</span>
+            </div>
+            <div class="story-item"
+              onclick="openStory('sunsets', 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=150&q=80', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80')">
+              <div class="story-ring has-story">
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=150&q=80"
+                  class="story-avatar-img" alt="sunsets" />
+              </div>
+              <span class="story-username">sunsets</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Feed Posts Container -->
+        <div class="posts-list" id="posts-list-container">
+
+          <!-- Post 1 -->
+          <article class="post-card" data-post-id="1">
+            <div class="post-header">
+              <div class="post-user-info">
+                <div class="post-avatar-ring">
+                  <img
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"
+                    class="post-avatar-img" alt="travel_vibes" />
+                </div>
+                <div class="post-user-meta">
+                  <span class="post-username" onclick="showPage('page-profile')">travel_vibes</span>
+                  <span class="post-location">Paris, France</span>
+                </div>
+              </div>
+              <button class="post-more-btn"><i class="fas fa-ellipsis-h"></i></button>
+            </div>
+            <div class="post-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?auto=format&fit=crop&w=1000&q=80"
+                alt="Eiffel Tower" class="post-real-img" />
+              <div class="double-tap-heart"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="post-actions">
+              <div class="post-actions-left">
+                <button class="action-btn like-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                <button class="action-btn"
+                  onclick="openPostDetail('travel_vibes', 'https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?auto=format&fit=crop&w=1000&q=80', 'The Eiffel Tower never gets old ✨ Every visit feels like the first time.', '1,203')"><i
+                    class="far fa-comment"></i></button>
+                <button class="action-btn"><i class="far fa-paper-plane"></i></button>
+              </div>
+              <button class="action-btn save-btn" onclick="toggleSave(this)"><i class="far fa-bookmark"></i></button>
+            </div>
+            <div class="post-likes">
+              <div class="likers-avatars">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80"
+                  class="liker-avatar-img" />
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=80&q=80"
+                  class="liker-avatar-img" />
+              </div>
+              <p class="likes-text">Liked by <strong>john_doe</strong> and <strong class="like-count">1,203</strong>
+                others</p>
+            </div>
+            <div class="post-caption">
+              <p><strong>travel_vibes</strong> The Eiffel Tower never gets old ✨ Every visit feels like the first time.
+              </p>
+            </div>
+            <button class="view-comments-btn"
+              onclick="openPostDetail('travel_vibes', 'https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?auto=format&fit=crop&w=1000&q=80', 'The Eiffel Tower never gets old ✨ Every visit feels like the first time.', '1,203')">View
+              all <span class="comment-count">48</span> comments</button>
+            <div class="comment-list-preview">
+              <div class="comment-preview">
+                <p><strong>john_doe</strong> Stunning framing! 🔥</p>
+              </div>
+            </div>
+            <div class="add-comment-row">
+              <span class="emoji-picker-btn"><i class="far fa-smile"></i></span>
+              <input type="text" placeholder="Add a comment…" class="comment-input"
+                onkeyup="handleCommentEnter(event, this)" />
+              <button class="post-comment-btn" onclick="postComment(this)">Post</button>
+            </div>
+            <span class="post-timestamp">2 HOURS AGO</span>
+          </article>
+
+          <!-- Post 2 Carousel -->
+          <article class="post-card" data-post-id="2">
+            <div class="post-header">
+              <div class="post-user-info">
+                <div class="post-avatar-ring">
+                  <img
+                    src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80"
+                    class="post-avatar-img" alt="jane_smith" />
+                </div>
+                <div class="post-user-meta">
+                  <span class="post-username" onclick="showPage('page-profile')">jane_smith</span>
+                  <span class="post-location">New York, USA</span>
+                </div>
+              </div>
+              <button class="post-more-btn"><i class="fas fa-ellipsis-h"></i></button>
+            </div>
+            <div class="post-image-wrapper carousel-post">
+              <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1000&q=80"
+                alt="NYC skyline" class="post-real-img carousel-active-img" />
+              <button class="carousel-btn carousel-prev" onclick="prevCarousel(this)"><i
+                  class="fas fa-chevron-left"></i></button>
+              <button class="carousel-btn carousel-next" onclick="nextCarousel(this)"><i
+                  class="fas fa-chevron-right"></i></button>
+              <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </div>
+            </div>
+            <div class="post-actions">
+              <div class="post-actions-left">
+                <button class="action-btn like-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+                <button class="action-btn"
+                  onclick="openPostDetail('jane_smith', 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1000&q=80', 'City lights and late nights 🌃 #NYC #Photography', '2,541')"><i
+                    class="far fa-comment"></i></button>
+                <button class="action-btn"><i class="far fa-paper-plane"></i></button>
+              </div>
+              <button class="action-btn save-btn" onclick="toggleSave(this)"><i class="far fa-bookmark"></i></button>
+            </div>
+            <div class="post-likes">
+              <p class="likes-text"><strong class="like-count">2,541</strong> likes</p>
+            </div>
+            <div class="post-caption">
+              <p><strong>jane_smith</strong> City lights and late nights 🌃 #NYC #Photography</p>
+            </div>
+            <button class="view-comments-btn"
+              onclick="openPostDetail('jane_smith', 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1000&q=80', 'City lights and late nights 🌃 #NYC #Photography', '2,541')">View
+              all <span class="comment-count">92</span> comments</button>
+            <div class="comment-list-preview"></div>
+            <div class="add-comment-row">
+              <span class="emoji-picker-btn"><i class="far fa-smile"></i></span>
+              <input type="text" placeholder="Add a comment…" class="comment-input"
+                onkeyup="handleCommentEnter(event, this)" />
+              <button class="post-comment-btn" onclick="postComment(this)">Post</button>
+            </div>
+            <span class="post-timestamp">5 HOURS AGO</span>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar" onclick="showPage('page-profile')">
+            <img id="sidebar-pic"
+              src="WhatsApp Image 2026-10-13 at 1.36.40 PM.jpeg"
+              alt="Profile" class="avatar-img user-avatar-sync" />
+          </div>
+          <div class="sidebar-user-info">
+            <span id="sidebar-username" class="sidebar-username" onclick="showPage('page-profile')">alex_creator</span>
+            <span id="sidebar-fullname" class="sidebar-fullname">Alex Rivera</span>
+          </div>
+          <button class="sidebar-switch-btn" onclick="showPage('page-login')">Switch</button>
+        </div>
+        <div class="suggestions-header">
+          <span class="suggestions-title">Suggestions For You</span>
+          <a href="#" class="see-all-link">See All</a>
+        </div>
+        <div class="suggestions-list">
+          <div class="suggestion-item">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=100&q=80"
+              class="suggestion-avatar-img" />
+            <div class="suggestion-info">
+              <span class="suggestion-username">photogrph</span>
+              <span class="suggestion-meta">Follows you</span>
+            </div>
+            <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+          </div>
+          <div class="suggestion-item">
+            <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=100&q=80"
+              class="suggestion-avatar-img" />
+            <div class="suggestion-info">
+              <span class="suggestion-username">daily_vlogs</span>
+              <span class="suggestion-meta">Suggested for you</span>
+            </div>
+            <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+          </div>
+          <div class="suggestion-item">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=100&q=80"
+              class="suggestion-avatar-img" />
+            <div class="suggestion-info">
+              <span class="suggestion-username">sunsets_hd</span>
+              <span class="suggestion-meta">New to Instagram</span>
+            </div>
+            <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+          </div>
+          <div class="suggestion-item">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+              class="suggestion-avatar-img" />
+            <div class="suggestion-info">
+              <span class="suggestion-username">artsy_frames</span>
+              <span class="suggestion-meta">Followed by john_doe</span>
+            </div>
+            <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <div class="footer-links">
+            <a href="#">About</a> · <a href="#">Help</a> · <a href="#">Press</a> · <a href="#">API</a> ·
+            <a href="#">Jobs</a> · <a href="#">Privacy</a> · <a href="#">Terms</a> ·
+            <a href="#">Locations</a> · <a href="#">Language</a>
+          </div>
+          <p class="footer-copy">© 2026 INSTAGRAM FROM META</p>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- ======== EXPLORE PAGE ======== -->
+  <div class="page hidden" id="page-explore">
+    <nav class="navbar">
+      <div class="nav-inner">
+        <div class="nav-logo" onclick="showPage('page-home')">
+          <span class="logo-text nav-logo-text">Instagram</span>
+        </div>
+        <div class="nav-search">
+          <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="Search" class="search-input" />
+          </div>
+        </div>
+        <div class="nav-icons">
+          <button class="nav-icon-btn" onclick="showPage('page-home')"><i class="fas fa-home"></i></button>
+          <button class="nav-icon-btn" onclick="showPage('page-messages')"><i class="far fa-paper-plane"></i></button>
+          <button class="nav-icon-btn" onclick="showModal('modal-new-post')"><i class="far fa-plus-square"></i></button>
+          <button class="nav-icon-btn active" onclick="showPage('page-explore')"><i class="far fa-compass"></i></button>
+          <button class="nav-icon-btn" onclick="toggleNotifications()"><i class="far fa-heart"></i></button>
+          <button class="nav-icon-btn theme-toggle-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+          <button class="nav-icon-btn" onclick="showPage('page-profile')">
+            <div class="nav-avatar"></div>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div class="explore-main">
+      <div class="explore-tabs">
+        <button class="explore-tab active">For You</button>
+        <button class="explore-tab">Photos</button>
+        <button class="explore-tab">Videos</button>
+        <button class="explore-tab">Reels</button>
+        <button class="explore-tab">Shops</button>
+        <button class="explore-tab">Places</button>
+      </div>
+      <div class="explore-grid">
+        <div class="explore-cell large"
+          onclick="openPostDetail('nature_photo', 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80', 'Mist over mountain valleys 🏔️', '4.2k')">
+          <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80"
+            class="explore-img" alt="Explore" />
+          <div class="explore-overlay"><span><i class="fas fa-heart"></i> 4.2k</span><span><i
+                class="fas fa-comment"></i> 148</span></div>
+        </div>
+        <div class="explore-col-small">
+          <div class="explore-cell"
+            onclick="openPostDetail('urban_life', 'https://images.unsplash.com/photo-1477959858617-67f30ac4ce78?auto=format&fit=crop&w=800&q=80', 'Architectural symmetry', '1.1k')">
+            <img src="https://images.unsplash.com/photo-1477959858617-67f30ac4ce78?auto=format&fit=crop&w=600&q=80"
+              class="explore-img" alt="Explore" />
+            <div class="explore-overlay"><span><i class="fas fa-heart"></i> 1.1k</span></div>
+          </div>
+          <div class="explore-cell"
+            onclick="openPostDetail('coffee_vibes', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80', 'Morning brew ☕', '876')">
+            <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80"
+              class="explore-img" alt="Explore" />
+            <div class="explore-overlay"><span><i class="fas fa-heart"></i> 876</span></div>
+          </div>
+        </div>
+        <div class="explore-cell"
+          onclick="openPostDetail('wildlife', 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80', 'Serene horizon', '3.2k')">
+          <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=600&q=80"
+            class="explore-img" alt="Explore" />
+          <div class="explore-overlay"><span><i class="fas fa-heart"></i> 3.2k</span></div>
+        </div>
+        <div class="explore-cell"
+          onclick="openPostDetail('ocean_drift', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', 'Turquoise waters 🌊', '5.8k')">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            class="explore-img" alt="Explore" />
+          <div class="explore-overlay"><span><i class="fas fa-heart"></i> 5.8k</span></div>
+        </div>
+        <div class="explore-cell large-row" onclick="showPage('page-reels')">
+          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
+            class="explore-img" alt="Explore Reel" />
+          <div class="explore-overlay"><span><i class="fas fa-play"></i> Reel</span><span><i class="fas fa-heart"></i>
+              12.4k</span></div>
+        </div>
+        <div class="explore-cell"
+          onclick="openPostDetail('street_snap', 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80', 'Under the stars ⭐', '2.1k')">
+          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80"
+            class="explore-img" alt="Explore" />
+          <div class="explore-overlay"><span><i class="fas fa-heart"></i> 2.1k</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== PROFILE PAGE ======== -->
+  <div class="page hidden" id="page-profile">
+    <nav class="navbar">
+      <div class="nav-inner">
+        <div class="nav-logo" onclick="showPage('page-home')"><span class="logo-text nav-logo-text">Instagram</span>
+        </div>
+        <div class="nav-search">
+          <div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" placeholder="Search"
+              class="search-input" /></div>
+        </div>
+        <div class="nav-icons">
+          <button class="nav-icon-btn" onclick="showPage('page-home')"><i class="fas fa-home"></i></button>
+          <button class="nav-icon-btn" onclick="showPage('page-messages')"><i class="far fa-paper-plane"></i></button>
+          <button class="nav-icon-btn" onclick="showModal('modal-new-post')"><i class="far fa-plus-square"></i></button>
+          <button class="nav-icon-btn" onclick="showPage('page-explore')"><i class="far fa-compass"></i></button>
+          <button class="nav-icon-btn" onclick="toggleNotifications()"><i class="far fa-heart"></i></button>
+          <button class="nav-icon-btn theme-toggle-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+          <button class="nav-icon-btn active" onclick="showPage('page-profile')">
+            <div class="nav-avatar"></div>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="profile-main">
+      <header class="profile-header">
+        <div class="profile-avatar-section">
+          <div class="profile-avatar-large">
+            <img id="profile-pic" src="WhatsApp Image 2026-10-13 at 1.36.40 PM.jpeg" alt="Profile Photo"
+              class="avatar-img user-avatar-sync" />
+          </div>
+        </div>
+        <div class="profile-info-section">
+          <div class="profile-top-row">
+            <h2 id="profile-username" class="profile-username-heading">alex_creator</h2>
+            <button class="profile-edit-btn" onclick="openEditProfileModal()">Edit Profile</button>
+            <button class="profile-settings-btn"><i class="fas fa-cog"></i></button>
+          </div>
+          <div class="profile-stats">
+            <div class="profile-stat"><span class="stat-count">12</span><span class="stat-label">posts</span></div>
+            <div class="profile-stat"><span class="stat-count">1,840</span><span class="stat-label">followers</span>
+            </div>
+            <div class="profile-stat"><span class="stat-count">512</span><span class="stat-label">following</span></div>
+          </div>
+          <div class="profile-bio">
+            <p id="profile-fullname" class="profile-fullname">Alex Rivera</p>
+            <p id="profile-bio" class="profile-bio-text">📸 Visual Storyteller & Digital Creator<br />🌍 Exploring
+              hidden aesthetic places<br />✉️ contact@alexrivera.io</p>
+            <a id="profile-website" href="https://alexrivera.io" target="_blank"
+              class="profile-website">www.alexrivera.io</a>
+          </div>
+        </div>
+      </header>
+
+      <div class="highlights-row">
+        <div class="highlight-item">
+          <div class="highlight-circle add-highlight"><i class="fas fa-plus"></i></div>
+          <span class="highlight-label">New</span>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-circle"><img
+              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=150&q=80"
+              class="highlight-img" /></div>
+          <span class="highlight-label">Travel</span>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-circle"><img
+              src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=150&q=80"
+              class="highlight-img" /></div>
+          <span class="highlight-label">Cafe</span>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-circle"><img
+              src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=150&q=80"
+              class="highlight-img" /></div>
+          <span class="highlight-label">Night</span>
+        </div>
+      </div>
+
+      <div class="profile-tabs">
+        <button class="profile-tab active" onclick="switchProfileTab(this,'tab-posts')"><i class="fas fa-th"></i>
+          Posts</button>
+        <button class="profile-tab" onclick="switchProfileTab(this,'tab-reels')"><i class="fas fa-film"></i>
+          Reels</button>
+        <button class="profile-tab" onclick="switchProfileTab(this,'tab-saved')"><i class="far fa-bookmark"></i>
+          Saved</button>
+        <button class="profile-tab" onclick="switchProfileTab(this,'tab-tagged')"><i class="far fa-user-circle"></i>
+          Tagged</button>
+      </div>
+
+      <div class="profile-tab-content" id="tab-posts">
+        <div class="profile-grid" id="user-profile-posts-grid">
+          <div class="profile-grid-item"
+            onclick="openPostDetail('alex_creator', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80', 'Serenity in the wilderness 🌿', '1.2k')">
+            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=600&q=80"
+              class="profile-grid-img" />
+            <div class="grid-overlay"><span><i class="fas fa-heart"></i> 1.2k</span><span><i class="fas fa-comment"></i>
+                34</span></div>
+          </div>
+          <div class="profile-grid-item"
+            onclick="openPostDetail('alex_creator', 'https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?auto=format&fit=crop&w=800&q=80', 'Parisian romance', '876')">
+            <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?auto=format&fit=crop&w=600&q=80"
+              class="profile-grid-img" />
+            <div class="grid-overlay"><span><i class="fas fa-heart"></i> 876</span><span><i class="fas fa-comment"></i>
+                12</span></div>
+          </div>
+          <div class="profile-grid-item"
+            onclick="openPostDetail('alex_creator', 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80', 'Morning mist over mountains', '2.3k')">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80"
+              class="profile-grid-img" />
+            <div class="grid-overlay"><span><i class="fas fa-heart"></i> 2.3k</span><span><i class="fas fa-comment"></i>
+                57</span></div>
+          </div>
+          <div class="profile-grid-item"
+            onclick="openPostDetail('alex_creator', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', 'Coastal vibes 🏄‍♂️', '1.9k')">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+              class="profile-grid-img" />
+            <div class="grid-overlay"><span><i class="fas fa-heart"></i> 1.9k</span><span><i class="fas fa-comment"></i>
+                41</span></div>
+          </div>
+          <div class="profile-grid-item"
+            onclick="openPostDetail('alex_creator', 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=80', 'Neon dreams in NYC', '3.1k')">
+            <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80"
+              class="profile-grid-img" />
+            <div class="grid-overlay"><span><i class="fas fa-heart"></i> 3.1k</span><span><i class="fas fa-comment"></i>
+                89</span></div>
+          </div>
+          <div class="profile-grid-item"
+            onclick="openPostDetail('alex_creator', 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80', 'Stargazing in silence', '744')">
+            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80"
+              class="profile-grid-img" />
+            <div class="grid-overlay"><span><i class="fas fa-heart"></i> 744</span><span><i class="fas fa-comment"></i>
+                18</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-tab-content hidden" id="tab-reels">
+        <div class="profile-grid">
+          <div class="profile-grid-item reel-item" onclick="showPage('page-reels')">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
+              class="profile-grid-img" />
+            <div class="reel-play"><i class="fas fa-play"></i></div><span class="reel-views"><i class="fas fa-play"></i>
+              14.2k</span>
+          </div>
+          <div class="profile-grid-item reel-item" onclick="showPage('page-reels')">
+            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=600&q=80"
+              class="profile-grid-img" />
+            <div class="reel-play"><i class="fas fa-play"></i></div><span class="reel-views"><i class="fas fa-play"></i>
+              8.7k</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-tab-content hidden" id="tab-saved">
+        <div class="saved-placeholder">
+          <i class="far fa-bookmark saved-icon"></i>
+          <h3>Only you can see what you've saved</h3>
+          <p>Save photos and videos that you want to see again.</p>
+        </div>
+      </div>
+
+      <div class="profile-tab-content hidden" id="tab-tagged">
+        <div class="profile-grid">
+          <div class="profile-grid-item"><img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+              class="profile-grid-img" />
+            <div class="grid-overlay"><span><i class="fas fa-heart"></i> 412</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== MESSAGES PAGE ======== -->
+  <div class="page hidden" id="page-messages">
+    <nav class="navbar">
+      <div class="nav-inner">
+        <div class="nav-logo" onclick="showPage('page-home')"><span class="logo-text nav-logo-text">Instagram</span>
+        </div>
+        <div class="nav-search">
+          <div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" placeholder="Search"
+              class="search-input" /></div>
+        </div>
+        <div class="nav-icons">
+          <button class="nav-icon-btn" onclick="showPage('page-home')"><i class="fas fa-home"></i></button>
+          <button class="nav-icon-btn active" onclick="showPage('page-messages')"><i
+              class="far fa-paper-plane"></i></button>
+          <button class="nav-icon-btn" onclick="showModal('modal-new-post')"><i class="far fa-plus-square"></i></button>
+          <button class="nav-icon-btn" onclick="showPage('page-explore')"><i class="far fa-compass"></i></button>
+          <button class="nav-icon-btn" onclick="toggleNotifications()"><i class="far fa-heart"></i></button>
+          <button class="nav-icon-btn theme-toggle-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+          <button class="nav-icon-btn" onclick="showPage('page-profile')">
+            <div class="nav-avatar"></div>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="messages-layout">
+      <aside class="inbox-sidebar">
+        <div class="inbox-header">
+          <span class="inbox-username"><span id="inbox-username">alex_creator</span> <i
+              class="fas fa-chevron-down"></i></span>
+          <button class="new-msg-btn"><i class="far fa-edit"></i></button>
+        </div>
+        <div class="inbox-tabs">
+          <button class="inbox-tab active">Primary</button>
+          <button class="inbox-tab">General</button>
+          <button class="inbox-tab">Requests</button>
+        </div>
+        <div class="inbox-search">
+          <div class="search-box"><i class="fas fa-search search-icon"></i><input type="text"
+              placeholder="Search Direct Messages" class="search-input" /></div>
+        </div>
+        <div class="conversation-list">
+          <div class="conversation-item active-convo"
+            onclick="selectConvo(this, 'john_doe', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80')">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+              class="convo-avatar-img" />
+            <div class="convo-info"><span class="convo-name">john_doe</span><span class="convo-preview">Liked your photo
+                · 2h</span></div>
+          </div>
+          <div class="conversation-item"
+            onclick="selectConvo(this, 'travel_vibes', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80')">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"
+              class="convo-avatar-img" />
+            <div class="convo-info"><span class="convo-name">travel_vibes</span><span class="convo-preview">You: Thanks!
+                😊 · 5h</span></div>
+            <span class="unread-dot"></span>
+          </div>
+          <div class="conversation-item"
+            onclick="selectConvo(this, 'jane_smith', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80')">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80"
+              class="convo-avatar-img" />
+            <div class="convo-info"><span class="convo-name">jane_smith</span><span class="convo-preview">Sent a photo ·
+                1d</span></div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="chat-window">
+        <div class="chat-header">
+          <div class="chat-user-info">
+            <img id="chat-active-avatar"
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+              class="chat-avatar-img" />
+            <div>
+              <span id="chat-active-username" class="chat-username" onclick="showPage('page-profile')">john_doe</span>
+              <span class="chat-status">Active 2h ago</span>
+            </div>
+          </div>
+          <div class="chat-actions">
+            <button class="chat-action-btn"><i class="fas fa-phone"></i></button>
+            <button class="chat-action-btn"><i class="fas fa-video"></i></button>
+            <button class="chat-action-btn"><i class="fas fa-info-circle"></i></button>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chat-messages-container">
+          <div class="chat-date-divider"><span>Yesterday</span></div>
+          <div class="message received">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+              class="msg-avatar-img" />
+            <div class="msg-bubble">Hey! Just saw your latest post. Love it! 🔥</div>
+          </div>
+          <div class="message sent">
+            <div class="msg-bubble">Thank you so much! Paris was amazing 😊</div>
+          </div>
+          <div class="chat-date-divider"><span>Today</span></div>
+          <div class="message received">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+              class="msg-avatar-img" />
+            <div class="msg-bubble">Definitely! Let me know when you're around.</div>
+          </div>
+        </div>
+
+        <form class="chat-input-row" onsubmit="sendChatMessage(event)">
+          <button type="button" class="chat-media-btn"><i class="far fa-smile"></i></button>
+          <input type="text" id="chat-text-input" placeholder="Message…" class="chat-input" />
+          <button type="submit" class="chat-send-btn">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== REELS PAGE ======== -->
+  <div class="page hidden" id="page-reels">
+    <div class="reels-layout">
+      <div class="reel-view">
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
+          class="reel-bg-video-mock" alt="Reel Video" />
+        <div class="reel-overlay">
+          <div class="reel-user-info">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"
+              class="reel-avatar-img" />
+            <span class="reel-username">travel_vibes</span>
+            <button class="reel-follow-btn" onclick="toggleFollow(this)">Follow</button>
+          </div>
+          <p class="reel-caption">Golden hour in Santorini 🌅 #travel #reels #sunset</p>
+          <div class="reel-audio"><i class="fas fa-music"></i> Original Audio - travel_vibes</div>
+        </div>
+        <div class="reel-actions">
+          <div class="reel-action-item"><button class="reel-action-btn" onclick="toggleLike(this)"><i
+                class="far fa-heart"></i></button><span class="reel-action-count">12.4k</span></div>
+          <div class="reel-action-item"><button class="reel-action-btn"><i class="far fa-comment"></i></button><span
+              class="reel-action-count">203</span></div>
+          <div class="reel-action-item"><button class="reel-action-btn"><i class="far fa-paper-plane"></i></button><span
+              class="reel-action-count">Share</span></div>
+          <div class="reel-action-item"><button class="reel-action-btn"><i class="fas fa-ellipsis-v"></i></button></div>
+          <div class="reel-vinyl">
+            <div class="reel-vinyl-inner"></div>
+          </div>
+        </div>
+        <div class="reel-progress">
+          <div class="reel-progress-bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========= MODALS ========= -->
+
+  <!-- Modal: New Post -->
+  <div class="modal-overlay hidden" id="modal-new-post" onclick="closeModalOutside(event,'modal-new-post')">
+    <div class="modal-box" id="modal-new-post-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Create new post</h3>
+        <button class="modal-close-btn" onclick="closeModal('modal-new-post')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="new-post-body">
+        <div class="upload-zone" id="upload-zone-container">
+          <i class="fas fa-photo-film upload-icon"></i>
+          <p class="upload-text">Upload photo or enter URL</p>
+          <input type="text" id="new-post-url" class="auth-input" placeholder="Paste Image URL (e.g. Unsplash URL)"
+            style="max-width:320px;" />
+          <textarea id="new-post-caption" class="auth-input" placeholder="Write a caption..." rows="3"
+            style="max-width:320px; resize:none;"></textarea>
+          <button class="upload-device-btn" onclick="createNewPost()">Share Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Post Detail -->
+  <div class="modal-overlay hidden" id="modal-post-detail" onclick="closeModalOutside(event,'modal-post-detail')">
+    <div class="modal-box post-detail-box" id="modal-post-detail-box">
+      <div class="post-detail-image">
+        <img id="detail-modal-img" src="" class="post-detail-real-img" alt="Post detail" />
+      </div>
+      <div class="post-detail-right">
+        <div class="post-detail-header">
+          <div class="post-user-info">
+            <img id="detail-modal-avatar" src="" class="post-avatar-img" />
+            <div class="post-user-meta">
+              <span id="detail-modal-username" class="post-username">username</span>
+              <span class="post-location">Original Post</span>
+            </div>
+          </div>
+          <button class="post-more-btn"><i class="fas fa-ellipsis-h"></i></button>
+        </div>
+        <div class="post-detail-comments" id="detail-modal-comments-list">
+          <div class="comment-item">
+            <img id="detail-modal-caption-avatar" src="" class="comment-avatar-img" />
+            <div class="comment-content">
+              <p><strong id="detail-modal-caption-username">username</strong> <span
+                  id="detail-modal-caption-text">Caption text</span></p>
+              <div class="comment-meta"><span>2h</span><span>Reply</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="post-detail-actions">
+          <div class="post-actions">
+            <div class="post-actions-left">
+              <button class="action-btn like-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i></button>
+              <button class="action-btn"><i class="far fa-comment"></i></button>
+              <button class="action-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+            <button class="action-btn save-btn" onclick="toggleSave(this)"><i class="far fa-bookmark"></i></button>
+          </div>
+          <p class="likes-text"><strong id="detail-modal-likes">1,203</strong> likes</p>
+        </div>
+        <div class="add-comment-row detail-comment-row">
+          <span class="emoji-picker-btn"><i class="far fa-smile"></i></span>
+          <input type="text" placeholder="Add a comment…" class="comment-input"
+            onkeyup="handleModalCommentEnter(event, this)" />
+          <button class="post-comment-btn" onclick="postModalComment(this)">Post</button>
+        </div>
+      </div>
+      <button class="modal-close-corner" onclick="closeModal('modal-post-detail')"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+
+  <!-- Modal: Story Viewer -->
+  <div class="modal-overlay hidden" id="modal-story" onclick="closeModalOutside(event,'modal-story')">
+    <div class="story-viewer">
+      <div class="story-progress-bars">
+        <div class="story-bar">
+          <div class="story-bar-fill" id="story-progress-fill"></div>
+        </div>
+      </div>
+      <div class="story-viewer-header">
+        <div class="story-viewer-user">
+          <img id="story-modal-user-avatar" src="" class="story-viewer-avatar-img" />
+          <span id="story-modal-username" class="story-viewer-username">username</span>
+          <span class="story-viewer-time">2h</span>
+        </div>
+        <button class="story-close-btn" onclick="closeModal('modal-story')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="story-content">
+        <img id="story-modal-img" src="" class="story-real-img" />
+      </div>
+      <div class="story-reply-row">
+        <input type="text" placeholder="Reply to story…" class="story-reply-input" />
+        <button class="story-reply-send"><i class="far fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Profile -->
+  <div class="modal-overlay hidden" id="modal-edit-profile" onclick="closeModalOutside(event,'modal-edit-profile')">
+    <div class="modal-box" style="width: 420px; padding: 24px;">
+      <div class="modal-header" style="border:none; padding:0 0 16px 0;">
+        <h3 class="modal-title">Edit Profile</h3>
+        <button class="modal-close-btn" onclick="closeModal('modal-edit-profile')"><i class="fas fa-times"></i></button>
+      </div>
+      <form onsubmit="saveProfileChanges(event)" style="display:flex; flex-direction:column; gap:12px;">
+        <label style="font-size:12px; font-weight:600;">Profile Picture URL</label>
+        <input type="text" id="edit-profile-pic-input" class="auth-input" placeholder="https://..." />
+        <label style="font-size:12px; font-weight:600;">Full Name</label>
+        <input type="text" id="edit-fullname-input" class="auth-input" required />
+        <label style="font-size:12px; font-weight:600;">Username</label>
+        <input type="text" id="edit-username-input" class="auth-input" required />
+        <label style="font-size:12px; font-weight:600;">Bio</label>
+        <textarea id="edit-bio-input" class="auth-input" rows="3" style="resize:none;"></textarea>
+        <label style="font-size:12px; font-weight:600;">Website</label>
+        <input type="text" id="edit-website-input" class="auth-input" />
+        <button type="submit" class="auth-btn-primary" style="margin-top:8px;">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV (mobile) -->
+  <nav class="bottom-nav">
+    <button class="bottom-nav-btn active" onclick="showPage('page-home')"><i class="fas fa-home"></i></button>
+    <button class="bottom-nav-btn" onclick="showPage('page-explore')"><i class="fas fa-search"></i></button>
+    <button class="bottom-nav-btn" onclick="showModal('modal-new-post')"><i class="far fa-plus-square"></i></button>
+    <button class="bottom-nav-btn" onclick="showPage('page-reels')"><i class="fas fa-film"></i></button>
+    <button class="bottom-nav-btn" onclick="showPage('page-profile')">
+      <div class="nav-avatar"></div>
+    </button>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
